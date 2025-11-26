@@ -140,7 +140,6 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Проверка существования комбинации факультета и формы
     IF NOT EXISTS (
     SELECT 1
     FROM STUDENTS
@@ -152,7 +151,6 @@ BEGIN
         RETURN;
     END
 
-    -- Добавление студента
     INSERT INTO STUDENTS (
         surname, first_name, second_name,
         faculty, form, cours,
