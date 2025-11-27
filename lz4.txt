@@ -145,7 +145,6 @@ BEGIN
     FROM STUDENTS
     WHERE faculty = @faculty AND form = @form
 )
-    )
     BEGIN
         RAISERROR('Ошибка: указанный факультет или формане существует.', 16, 1, @faculty, @form);
         RETURN;
