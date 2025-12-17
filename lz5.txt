@@ -82,93 +82,39 @@ insert subjects values
 (N'Средства визуального программирования ',90),
 (N'Объектно-ориентированное программирование',70)
 
--- Задание 1
+-- Задание 1 
 
-CREATE PROCEDURE CountStudentsByFacultyAndForm
-    @faculty NVARCHAR(10),
-    @form NVARCHAR(10)
+CREATE FUNCTION GetStudentStatus (@second_name NVARCHAR(25))
+RETURNS NVARCHAR(20)
 AS
 BEGIN
-    SET NOCOUNT ON;
+    DECLARE @status NVARCHAR(20);
+    
+    IF @second_name IS NULL OR @second_name = ''
+        SET @status = N'Иностранец';
+    ELSE
+        SET @status = N'Гражданин';
 
-    SELECT @faculty AS faculty,
-           @form AS form,
-           COUNT(*) AS student_count
-    FROM Students
-    WHERE faculty = @faculty AND form = @form;
+    RETURN @status;
 END;
 
-EXEC CountStudentsByFacultyAndForm @faculty = N'ФПМ', @form = N'очная';
+SELECT surname, first_name, second_name, dbo.GetStudentStatus(second_name) AS citizenship
+FROM Students;
 
 -- Задание 2
 
-CREATE PROCEDURE CountSubjectsByFaculty
+CREATE FUNCTION GetTeacherHours (@surname NVARCHAR(25))
+RETURNS INT
 AS
 BEGIN
-    SET NOCOUNT ON;
-
-    DECLARE @FPM INT, @FPK INT, @Total INT, @Common INT;
-
-    SELECT @FPM = COUNT(DISTINCT subject) FROM TEACHERS WHERE faculty = N'ФПМ';
-    SELECT @FPK = COUNT(DISTINCT subject) FROM TEACHERS WHERE faculty = N'ФПК';
-    SELECT @Common = COUNT(DISTINCT subject)
-    FROM TEACHERS 
-    WHERE faculty = N'ФПМ' AND subject IN (
-        SELECT subj FROM TEACHERS WHERE faculty = N'ФПК'
-    );
-
-    SELECT @Total = COUNT(DISTINCT subject) FROM TEACHERS;
-
-    PRINT CONCAT('Для ФПК читается ', @FPK, ' предмет(ов),');
-    PRINT CONCAT('Для ФПМ читается ', @FPM, ' предмет(ов),');
-    PRINT CONCAT('Всего ', @Total, ' предмет(ов) (', @Common, ' из них одинаковы).');
+    DECLARE @total_hours INT;
+    
+    SELECT @total_hours = SUM(hours)
+    FROM Teachers
+    WHERE surname = @surname;
+    
+    RETURN ISNULL(@total_hours, 0);
 END;
 
-EXEC CountSubjectsByFaculty;
-
--- Задание 3
-
-CREATE PROCEDURE AddStudentToFacultyForm
-    @surname NVARCHAR(25),
-    @firstname NVARCHAR(25),
-    @secondname NVARCHAR(25) = NULL,
-    @faculty NVARCHAR(10),
-    @form NVARCHAR(10),
-    @birthdaydate DATE,
-    @indate DATE
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    IF NOT EXISTS (
-    SELECT 1
-    FROM STUDENTS
-    WHERE faculty = @faculty AND form = @form
-)
-    BEGIN
-        RAISERROR('Ошибка: указанный факультет или формане существует.', 16, 1, @faculty, @form);
-        RETURN;
-    END
-
-    INSERT INTO STUDENTS (
-        surname, first_name, second_name,
-        faculty, form, cours,
-        birthday_date, in_date
-    )
-    VALUES (
-        @surname, @firstname, @secondname,
-        @faculty, @form, 1, 
-        @birthdaydate, @indate
-    );
-
-    PRINT CONCAT('Добавлен: ', @surname, ' ', @firstname, ' (', @faculty, ', ', @form, ')');
-END;
-
-EXEC AddStudentToFacultyForm
-    @surname = N'Зайцев',
-    @firstname = N'Алексей',
-    @secondname = N'Сергеевич',
-    @faculty = N'ФПК',
-    @form = N'очная',
-    @birthdaydate = '2000-05-15',
-    @indate = '2025-09-01';
+SELECT DISTINCT surname, first_name, second_name, dbo.GetTeacherHours(surname) AS teacher_hours
+FROM Teachers;
