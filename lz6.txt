@@ -1,0 +1,273 @@
+Create table Students
+(id int not  null IDENTITY(1,1),
+surname nvarchar(25) not null,
+first_name nvarchar(25) not null,
+second_name nvarchar(25),
+form nvarchar(10) not null default 'очная',
+faculty nvarchar(10) not null default 'ФПМ',
+cours int  not null default 1,
+all_hours int default NULL,
+inclass_hours int default NULL,
+birthday_date date,
+in_date date,   
+exm float default NULL,
+CONSTRAINT PK_Students Primary key (id)
+);
+insert into Students values
+(N'Стрынгель',N'К',null,N'заочная',N'ФПК',1,300,100,'19831212','20160901',8),
+(N'Козлова',N'Д',N'Е',N'заочная',N'ФПК',2,300,100,'19831012','20150901',8.4),
+(N'Федоров',N'Н',N'Н',N'заочная',N'ФПК',3,300,100,'19811207','20140901',7),
+(N'Рингель',N'П',N'О',N'заочная',N'ФПК',3,300,100,'19730215','20160901',8),
+(N'Бежик',N'Н',N'Н',N'вечерняя',N'ФПК',1,500,400,'19931211','2016-09-01',4.5),
+(N'Осипчик',N'Н',N'Н',N'вечерняя',N'ФПК',1,500,400,'19831216','20150901',7.7),
+(N'Белый',N'С',N'С',N'вечерняя',N'ФПК',2,450,370,'19870627','20150901',6.7),
+(N'Ботяновский',N'А',N'С',N'вечерняя',N'ФПК',2,450,370,'19870723','20150901',7.6),
+(N'Слободницкий',N'С',N'А',N'вечерняя',N'ФПК',2,450,370,'19870803','20150901',6.7),
+(N'Рогатка',N'П',N'Р',N'очная',N'ФПМ',1,500,450,'19861027','20160901',7.4),
+(N'Федоренко',N'П',N'Р',N'очная',N'ФПМ',1,500,450,'19950426','20160901',5.6),
+(N'Зингель',N'П',N'В',N'очная',N'ФПМ',2,500,450,'19900425','20150901',3.4),
+(N'Михеенок',N'Л',N'Н',N'очная',N'ФПМ',2,500,450,'19890313','20150901',5.3),
+(N'Савицкая',N'Л',N'Н',N'очная',N'ФПМ',3,450,400, '19950705','20140901',7.7),
+(N'Ковальчук',N'О',N'Е',N'заочная',N'ФПМ',1,350,100,'19640523','20160901',7.6),
+(N'Заболотная',N'Л',N'И',N'заочная',N'ФПМ',1,350,100,'19860914','20160901',4.7),
+(N'Ковриго',N'И',null,N'заочная',N'ФПМ',2,360,120,'19920301', '20150901',7.7),
+(N'Шарапо',N'М',null,N'заочная',N'ФПМ',2,360,120,'19970325', '20150901',8.7),
+(N'Сафроненко',N'Н',N'Л',N'заочная',N'ФПМ',3,370,130, '19920525','20140901',7.7),
+(N'Зайцева',N'Т',N'Я',N'заочная',N'ФПМ',3,370,130,'19940725','20140901',5.6);
+
+Create table Teachers
+(id int not  null IDENTITY(1,1),
+surname nvarchar(25) not null,
+first_name nvarchar(25) not null,
+second_name nvarchar(25),
+subject nvarchar(150),
+form nvarchar(10) not null default 'очная',
+faculty nvarchar(10) not null default 'ФПМ',
+cours int default 1 not NULL,
+hours int default NULL,
+birthday_date date,
+start_work_date date,
+CONSTRAINT PK_Teachers Primary key (id)
+);
+
+insert into Teachers values
+(N'Скворцов',N'К',null,N'Дифференциальные исчисления',N'очная',N'ФПМ',1,150,'19831212','20160901'),
+(N'Скворцов',N'К',null,N'Геометрия и алгебра',N'очная',N'ФПМ',1,200,'19831212','20160901'),
+(N'Сидоренко',N'Л',N'К',N'Теория вероятности',N'очная',N'ФПМ',1,100,'19831212','20160901'),
+(N'Скворцов',N'К',null,N'Дифференциальные исчисления',N'заочная',N'ФПМ',1,34,'19831212','20160901'),
+(N'Сидоренко',N'Л',N'К',N'Геометрия и алгебра',N'заочная',N'ФПМ',1,50,'19831212','20160901'),
+(N'Сидоренко',N'Л',N'К',N'Теория вероятности',N'заочная',N'ФПМ',1,16,'19831212','20160901'),
+(N'Круглов',N'К',N'Д',N'Теория множеств',N'очная',N'ФПМ',2,150,'19860825','20140901'),
+(N'Круглов',N'К',N'Д',N'Методы численного анализа',N'очная',N'ФПМ',2,150,'19860825','20140901'),
+(N'Загорова',N'К',N'Д',N'Прикладная статистика',N'очная',N'ФПМ',2,150,'19791005','20100901'),
+(N'Круглов',N'К',N'Д',N'Теория множеств',N'заочная',N'ФПМ',2,40,'19860825','20140901'),
+(N'Круглов',N'К',N'Д',N'Методы численного анализа',N'заочная',N'ФПМ',2,40,'19860825','20140901'),
+(N'Загорова',N'К',N'Д',N'Прикладная статистика',N'заочная',N'ФПМ',2,40,'19791005','20100901'),
+(N'Зуров',N'П',null,N'Философия',N'очная',N'ФПМ',3,50,'19780712','20160901'),
+(N'Зуров',N'П',null,N'Социология',N'очная',N'ФПМ',3,50,'19780712','20160901'),
+(N'Сидоренко',N'Л',N'К',N'Методы машинного обучения',N'очная',N'ФПМ',3,150,'19831212','20160901');
+
+CREATE TABLE Subjects (
+    subject_id INT IDENTITY(1,1),
+    subject_name VARCHAR(200) NOT NULL,
+    hours_count INT NOT NULL,
+    CONSTRAINT PK_SUBJECTS PRIMARY KEY (subject_id)
+);
+
+insert subjects values 
+(N'Физика',200),
+(N'Математика',120),
+(N'Основы алгоритмизации',70),
+(N'Проектирование БД',130),
+(N'Средства визуального программирования ',90),
+(N'Объектно-ориентированное программирование',70)
+
+-- 1 задание
+
+CREATE TRIGGER StudentExamUpdate
+ON STUDENTS
+AFTER UPDATE
+AS
+BEGIN
+    IF UPDATE(exm)
+    BEGIN
+        DECLARE @faculty NVARCHAR(10);
+        DECLARE @old_avg FLOAT;
+        DECLARE @new_avg FLOAT;
+        DECLARE @old_exm FLOAT;
+        DECLARE @new_exm FLOAT;
+        
+        SELECT @faculty = faculty, @new_exm = exm FROM inserted;
+        SELECT @old_exm = exm FROM deleted;
+        
+        SELECT @old_avg = (SUM(exm) - @new_exm + @old_exm) / COUNT(*)
+        FROM STUDENTS
+        WHERE faculty = @faculty AND exm IS NOT NULL;
+        
+        SELECT @new_avg = AVG(exm)
+        FROM STUDENTS
+        WHERE faculty = @faculty AND exm IS NOT NULL;
+        
+        IF @new_avg > @old_avg
+            PRINT N'Средний балл повысился';
+        ELSE IF @new_avg < @old_avg
+            PRINT N'Средний балл снизился';
+        ELSE
+            PRINT N'Средний балл не изменился';
+    END
+END;
+
+UPDATE STUDENTS SET exm = 9.0 WHERE id = 10;
+
+-- 2 задание
+
+CREATE TABLE COUNTS (
+    Count_form INT DEFAULT 0,
+    Count_stud INT DEFAULT 0);
+
+INSERT INTO COUNTS (Count_form, Count_stud) 
+VALUES ((SELECT COUNT(DISTINCT form) FROM STUDENTS),
+        (SELECT COUNT(*) FROM STUDENTS));
+
+SELECT * FROM COUNTS;
+SELECT DISTINCT form FROM STUDENTS;
+
+-- 2.1 
+CREATE TRIGGER StudentInsert
+ON STUDENTS
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @new_form NVARCHAR(10);
+    SELECT @new_form = form FROM inserted;
+    
+    UPDATE COUNTS SET Count_stud = Count_stud + 1;
+    
+    IF (SELECT COUNT(*) FROM STUDENTS WHERE form = @new_form) = 1
+    BEGIN
+        UPDATE COUNTS SET Count_form = Count_form + 1;
+        PRINT N'Добавлена новая форма обучения.';
+    END
+END;
+
+INSERT INTO STUDENTS (surname, first_name, form, faculty, cours)
+VALUES (N'Кравцов', N'Д', N'Домашняя', N'ФПМ', 1);
+SELECT * FROM COUNTS;
+
+-- 2.2 
+CREATE TRIGGER StudentFormUpdate
+ON STUDENTS
+AFTER UPDATE
+AS
+BEGIN
+    IF UPDATE(form)
+    BEGIN
+        DECLARE @old_form NVARCHAR(10);
+        DECLARE @new_form NVARCHAR(10);
+        
+        SELECT @old_form = form FROM deleted;
+        SELECT @new_form = form FROM inserted;
+        
+        IF NOT EXISTS (SELECT 1 FROM STUDENTS WHERE form = @old_form)
+        BEGIN
+            UPDATE COUNTS SET Count_form = Count_form - 1;
+            PRINT N'Форма ' + @old_form + N'удалена, так как больше не используется.';
+        END
+        
+        IF (SELECT COUNT(*) FROM STUDENTS WHERE form = @new_form) = 1
+        BEGIN
+            UPDATE COUNTS SET Count_form = Count_form + 1;
+            PRINT N'Добавлена новая форма ' + @new_form;
+        END
+    END
+END;
+
+INSERT INTO STUDENTS (surname, first_name, form, faculty, cours)
+VALUES (N'Протак', N'А', N'очная', N'ФПМ', 1);
+SELECT * FROM COUNTS;
+
+-- 2.3 
+CREATE TRIGGER StudentDelete
+ON STUDENTS
+AFTER DELETE
+AS
+BEGIN
+    DECLARE @deleted_form NVARCHAR(10);
+    SELECT @deleted_form = form FROM deleted;
+    
+    UPDATE COUNTS SET Count_stud = Count_stud - 1;
+    
+    IF NOT EXISTS (SELECT 1 FROM STUDENTS WHERE form = @deleted_form)
+    BEGIN
+        UPDATE COUNTS SET Count_form = Count_form - 1;
+        PRINT N'Форма ' + @deleted_form + N' удалена, так как больше не используется.';
+    END
+END;
+
+DELETE FROM STUDENTS WHERE surname = N'Протак';
+SELECT * FROM COUNTS;
+
+DELETE FROM STUDENTS WHERE surname = N'Кравцов';
+SELECT * FROM COUNTS;
+
+SELECT * FROM COUNTS;
+SELECT DISTINCT form FROM STUDENTS;
+
+-- Задание 3
+-- 3.1
+CREATE VIEW View_Students_FPK
+AS
+SELECT 
+    surname AS Фамилия,
+    first_name AS Имя,
+    second_name AS Отчество,
+    cours AS Курс,
+    form AS Форма
+FROM STUDENTS
+WHERE faculty = N'ФПК';
+
+SELECT * FROM View_Students_FPK;
+
+-- 3.2
+CREATE VIEW View_Hours_Zaochnaya
+AS
+SELECT 
+    faculty AS Факультет,
+    cours AS Курс,
+    SUM(all_hours) AS Часы
+FROM STUDENTS
+WHERE form = N'заочная'
+GROUP BY faculty, cours;
+
+SELECT * FROM View_Hours_Zaochnaya;
+
+-- 3.3
+CREATE VIEW View_Otlichniki
+AS
+SELECT 
+    faculty AS Факультет,
+    cours AS Курс,
+    form AS Форма,
+    COUNT(*) AS Количество_Отличников
+FROM STUDENTS
+WHERE exm > 8
+GROUP BY faculty, cours, form;
+
+SELECT * FROM View_Otlichniki;
+
+-- 3.4
+CREATE VIEW View_Looser_Students
+AS
+SELECT 
+    surname AS Фамилия,
+    first_name AS Имя,
+    second_name AS Отчество,
+    faculty AS Факультет,
+    cours AS Курс,
+    form AS Форма,
+    exm AS Средний_Балл,
+    (SELECT AVG(exm) FROM STUDENTS WHERE exm < 6) AS Количество_Слабоуспевающих_Студентов 
+FROM STUDENTS
+WHERE exm < 6;
+
+SELECT * FROM View_Looser_Students;
